@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ROYAL CASINO</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+background:#0b1020;
+color:white;
+overflow-x:hidden;
+}
+
+/* HEADER */
+
+header{
+width:100%;
+height:75px;
+background:#111827;
+position:fixed;
+top:0;
+left:0;
+display:flex;
+justify-content:center;
+align-items:center;
+border-bottom:1px solid #1f2937;
+z-index:1000;
+}
+
+.logo{
+font-size:30px;
+color:#ffd700;
+font-weight:bold;
+letter-spacing:3px;
+}
+
+.menu-btn,
+.settings-btn{
+position:absolute;
+width:42px;
+height:42px;
+border:none;
+border-radius:12px;
+background:#1f2937;
+color:white;
+font-size:22px;
+cursor:pointer;
+}
+
+.menu-btn{
+left:20px;
+}
+
+.settings-btn{
+right:20px;
+}
+
+/* AUTH */
+
+.auth{
+width:100%;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+.auth-box{
+width:360px;
+background:#111827;
+padding:30px;
+border-radius:20px;
+}
+
+.auth-box h2{
+text-align:center;
+margin-bottom:20px;
+}
+
+.auth-input{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#1f2937;
+color:white;
+margin-bottom:15px;
+}
+
+.auth-btn{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#ffd700;
+color:black;
+font-weight:bold;
+cursor:pointer;
+}
+
+.switch{
+text-align:center;
+margin-top:15px;
+color:#ffd700;
+cursor:pointer;
+}
+
+/* APP */
+
+.app{
+display:none;
+}
+
+/* SIDEBAR */
+
+.sidebar{
+width:230px;
+height:calc(100vh - 75px);
+background:#111827;
+position:fixed;
+top:75px;
+left:0;
+padding:20px;
+transition:0.3s;
+border-right:1px solid #1f2937;
+}
+
+.sidebar.closed{
+left:-230px;
+}
+
+.menu-item{
+padding:15px;
+background:#1f2937;
+border-radius:14px;
+margin-bottom:12px;
+cursor:pointer;
+transition:0.3s;
+}
+
+.menu-item:hover{
+background:#374151;
+}
+
+/* CONTENT */
+
+.content{
+margin-left:230px;
+margin-top:75px;
+padding:25px;
+transition:0.3s;
+}
+
+.content.full{
+margin-left:0;
+}
+
+/* TOPBAR */
+
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+
+.balance{
+background:#111827;
+padding:15px 25px;
+border-radius:15px;
+color:#ffd700;
+font-size:20px;
+font-weight:bold;
+}
+
+.logout-btn{
+padding:12px 20px;
+border:none;
+border-radius:12px;
+background:#ef4444;
+color:white;
+cursor:pointer;
+}
+
+/* GAMES */
+
+.games{
+display:none;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
+}
+
+.game-card{
+background:#111827;
+border-radius:20px;
+overflow:hidden;
+border:1px solid #1f2937;
+cursor:pointer;
+transition:0.3s;
+}
+
+.game-card:hover{
+transform:translateY(-5px);
+}
+
+.game-image{
+height:180px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:70px;
+background:linear-gradient(135deg,#7c3aed,#2563eb);
+}
+
+.game-content{
+padding:20px;
+}
+
+.game-title{
+font-size:24px;
+}
+
+/* WINDOWS */
+
+.game-window{
+display:none;
+max-width:900px;
+margin:auto;
+background:#111827;
+padding:30px;
+border-radius:25px;
+}
+
+/* CONTROLS */
+
+.controls{
+display:flex;
+gap:15px;
+margin-bottom:20px;
+}
+
+.controls input,
+.controls select{
+flex:1;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#1f2937;
+color:white;
+}
+
+.play-btn{
+padding:14px 25px;
+border:none;
+border-radius:12px;
+background:#22c55e;
+color:white;
+cursor:pointer;
+font-weight:bold;
+}
+
+/* SLOTS */
+
+.slots{
+display:flex;
+justify-content:center;
+gap:12px;
+margin:30px 0;
+}
+
+.slot{
+width:100px;
+height:100px;
+background:#1f2937;
+border-radius:18px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:50px;
+border:2px solid #374151;
+transition:0.2s;
+}
+
+.slot.animate{
+animation:spin 0.08s linear infinite;
+}
+
+@keyframes spin{
+
+0%{
+transform:translateY(-8px);
+}
+
+50%{
+transform:translateY(8px);
+}
+
+100%{
+transform:translateY(-8px);
+}
+
+}
+
+.slot.win{
+box-shadow:0 0 20px #22c55e;
+}
+
+/* MINES */
+
+.mines-grid{
+display:grid;
+grid-template-columns:repeat(5,1fr);
+gap:10px;
+margin-top:20px;
+}
+
+.mine{
+aspect-ratio:1;
+background:#1f2937;
+border-radius:14px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:24px;
+cursor:pointer;
+transition:0.2s;
+}
+
+.mine:hover{
+background:#374151;
+}
+
+/* INFO */
+
+.info{
+margin-top:15px;
+color:#ffd700;
+font-size:18px;
+}
+
+.message{
+margin-top:20px;
+text-align:center;
+color:#ffd700;
+font-size:22px;
+min-height:35px;
+}
+
+/* HISTORY */
+
+.history-list{
+margin-top:20px;
+}
+
+.history-item{
+background:#1f2937;
+padding:15px;
+border-radius:12px;
+margin-bottom:12px;
+display:flex;
+justify-content:space-between;
+flex-wrap:wrap;
+gap:10px;
+}
+
+/* SETTINGS */
+
+.settings-panel{
+position:fixed;
+right:-300px;
+top:0;
+width:300px;
+height:100vh;
+background:#111827;
+padding:25px;
+transition:0.4s;
+z-index:2000;
+}
+
+.settings-panel.active{
+right:0;
+}
+
+.settings-title{
+font-size:26px;
+color:#ffd700;
+margin-bottom:20px;
+}
+
+.settings-item{
+width:100%;
+padding:14px;
+border:none;
+border-radius:12px;
+background:#1f2937;
+color:white;
+margin-bottom:15px;
+cursor:pointer;
+}
+
+/* PAYMENT */
+
+.payment-window{
+position:fixed;
+inset:0;
+background:rgba(0,0,0,0.8);
+display:none;
+justify-content:center;
+align-items:center;
+z-index:5000;
+}
+
+.payment-box{
+width:380px;
+background:#111827;
+padding:30px;
+border-radius:25px;
+}
+
+.payment-box h2{
+text-align:center;
+margin-bottom:20px;
+color:#ffd700;
+}
+
+.payment-input{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#1f2937;
+color:white;
+margin-bottom:15px;
+}
+
+.payment-btn{
+width:100%;
+padding:15px;
+border:none;
+border-radius:12px;
+background:#22c55e;
+color:white;
+margin-bottom:10px;
+cursor:pointer;
+font-weight:bold;
+}
+
+.close-btn{
+background:#ef4444;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+<div class="logo">
+ROYAL CASINO
+</div>
+
+<button class="settings-btn" onclick="toggleSettings()">⚙</button>
+
+</header>
+
+<!-- AUTH -->
+
+<div class="auth" id="auth">
+
+<div class="auth-box">
+
+<h2 id="authTitle">Вход</h2>
+
+<input type="text" id="username" class="auth-input" placeholder="Логин">
+
+<input type="password" id="password" class="auth-input" placeholder="Пароль">
+
+<button class="auth-btn" onclick="submitAuth()" id="authBtn">
+Войти
+</button>
+
+<div class="switch" onclick="toggleMode()" id="switchText">
+Нет аккаунта? Регистрация
+</div>
+
+</div>
+
+</div>
+
+<!-- APP -->
+
+<div class="app" id="app">
+
+<div class="sidebar" id="sidebar">
+
+<div class="menu-item" onclick="openCasino()">
+🎰 Казино
+</div>
+
+<div class="menu-item" onclick="openHistory()">
+📜 История игр
+</div>
+
+<div class="menu-item">
+🏆 Турниры
+</div>
+
+</div>
+
+<div class="content" id="content">
+
+<div class="topbar">
+
+<div class="balance">
+Баланс: $<span id="balance">1000</span>
+</div>
+
+<button class="logout-btn" onclick="logout()">
+Выйти
+</button>
+
+</div>
+
+<!-- GAMES -->
+
+<div class="games" id="games">
+
+<div class="game-card" onclick="openSlots()">
+
+<div class="game-image">
+🎰
+</div>
+
+<div class="game-content">
+
+<div class="game-title">
+Slots
+</div>
+
+</div>
+
+</div>
+
+<div class="game-card" onclick="openMines()">
+
+<div class="game-image">
+💣
+</div>
+
+<div class="game-content">
+
+<div class="game-title">
+Mines
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SLOTS -->
+
+<div class="game-window" id="slotsWindow">
+
+<h2>Slots</h2>
+
+<div class="controls">
+
+<input type="number" id="slotBet" placeholder="Ставка">
+
+<button class="play-btn" onclick="playSlots()">
+Играть
+</button>
+
+</div>
+
+<div class="slots">
+
+<div class="slot" id="slot1">🍒</div>
+<div class="slot" id="slot2">💎</div>
+<div class="slot" id="slot3">7️⃣</div>
+
+</div>
+
+<div class="message" id="slotMessage"></div>
+
+</div>
+
+<!-- MINES -->
+
+<div class="game-window" id="minesWindow">
+
+<h2>Mines</h2>
+
+<div class="controls">
+
+<input type="number" id="minesBet" placeholder="Ставка">
+
+<select id="mineCount">
+
+<option value="5">5 мин</option>
+<option value="7">7 мин</option>
+<option value="10">10 мин</option>
+<option value="12">12 мин</option>
+
+</select>
+
+<button class="play-btn" onclick="startMines()">
+Старт
+</button>
+
+</div>
+
+<div class="info">
+Коэффициент:
+<span id="coef">2.00x</span>
+</div>
+
+<div class="info">
+Текущий выигрыш:
+$<span id="currentWin">0</span>
+</div>
+
+<button
+class="play-btn"
+style="width:100%;margin-bottom:20px"
+onclick="cashout()"
+>
+Забрать выигрыш
+</button>
+
+<div class="mines-grid" id="minesGrid"></div>
+
+<div class="message" id="minesMessage"></div>
+
+</div>
+
+<!-- HISTORY -->
+
+<div class="game-window" id="historyWindow">
+
+<h2>История игр</h2>
+
+<div class="history-list" id="historyList"></div>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- SETTINGS -->
+
+<div class="settings-panel" id="settingsPanel">
+
+<div class="settings-title">
+Настройки
+</div>
+
+<button class="settings-item" onclick="openDeposit()">
+💳 Пополнение
+</button>
+
+<button class="settings-item" onclick="openWithdraw()">
+💸 Вывод
+</button>
+
+<button class="settings-item" onclick="toggleSettings()">
+❌ Закрыть
+</button>
+
+</div>
+
+<!-- DEPOSIT -->
+
+<div class="payment-window" id="depositWindow">
+
+<div class="payment-box">
+
+<h2>Пополнение</h2>
+
+<input type="number" id="depositAmount" class="payment-input" placeholder="Сумма">
+
+<button class="payment-btn" onclick="depositBalance()">
+Пополнить
+</button>
+
+<button class="payment-btn close-btn" onclick="closeDeposit()">
+Закрыть
+</button>
+
+</div>
+
+</div>
+
+<!-- WITHDRAW -->
+
+<div class="payment-window" id="withdrawWindow">
+
+<div class="payment-box">
+
+<h2>Вывод</h2>
+
+<input type="number" id="withdrawAmount" class="payment-input" placeholder="Сумма">
+
+<button class="payment-btn" onclick="withdrawBalance()">
+Вывести
+</button>
+
+<button class="payment-btn close-btn" onclick="closeWithdraw()">
+Закрыть
+</button>
+
+</div>
+
+</div>
+
+<script>
+
+/* AUTH */
+
+let loginMode = true;
+
+function toggleMode(){
+
+loginMode = !loginMode;
+
+if(loginMode){
+
+authTitle.innerText = "Вход";
+authBtn.innerText = "Войти";
+switchText.innerText =
+"Нет аккаунта? Регистрация";
+
+}else{
+
+authTitle.innerText = "Регистрация";
+authBtn.innerText = "Создать аккаунт";
+switchText.innerText =
+"Уже есть аккаунт? Вход";
+}
+}
+
+function submitAuth(){
+
+const username =
+document.getElementById("username").value.trim();
+
+const password =
+document.getElementById("password").value.trim();
+
+if(!username || !password){
+
+alert("Заполните поля");
+return;
+}
+
+let users =
+JSON.parse(localStorage.getItem("users")) || {};
+
+if(loginMode){
+
+if(!users[username]){
+
+alert("Аккаунт не найден");
+return;
+}
+
+if(users[username].password !== password){
+
+alert("Неверный пароль");
+return;
+}
+
+login(username);
+
+}else{
+
+if(users[username]){
+
+alert("Аккаунт уже существует");
+return;
+}
+
+users[username] = {
+password:password,
+balance:1000,
+history:[]
+};
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+alert("Аккаунт создан");
+
+toggleMode();
+}
+}
+
+function login(username){
+
+localStorage.setItem(
+"currentUser",
+username
+);
+
+auth.style.display = "none";
+app.style.display = "block";
+
+loadBalance();
+
+openCasino();
+}
+
+function logout(){
+
+localStorage.removeItem(
+"currentUser"
+);
+
+auth.style.display = "flex";
+app.style.display = "none";
+}
+
+/* BALANCE */
+
+function loadBalance(){
+
+const currentUser =
+localStorage.getItem("currentUser");
+
+let users =
+JSON.parse(localStorage.getItem("users"));
+
+balance.innerText =
+users[currentUser]
+.balance
+.toFixed(2);
+}
+
+function saveBalance(value){
+
+const currentUser =
+localStorage.getItem("currentUser");
+
+let users =
+JSON.parse(localStorage.getItem("users"));
+
+users[currentUser].balance = value;
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+loadBalance();
+}
+
+/* HISTORY */
+
+function addHistory(game,result,multi,amount){
+
+const currentUser =
+localStorage.getItem("currentUser");
+
+let users =
+JSON.parse(localStorage.getItem("users"));
+
+users[currentUser].history.unshift({
+
+game:game,
+result:result,
+multi:multi,
+amount:amount
+
+});
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+renderHistory();
+}
+
+function renderHistory(){
+
+const currentUser =
+localStorage.getItem("currentUser");
+
+let users =
+JSON.parse(localStorage.getItem("users"));
+
+const history =
+users[currentUser].history;
+
+historyList.innerHTML = "";
+
+if(history.length === 0){
+
+historyList.innerHTML =
+"<div class='history-item'>История пуста</div>";
+
+return;
+}
+
+history.forEach(item=>{
+
+historyList.innerHTML += `
+
+<div class="history-item">
+
+<div>${item.game}</div>
+
+<div>${item.result}</div>
+
+<div>${item.multi}</div>
+
+<div>$${item.amount}</div>
+
+</div>
+
+`;
+});
+}
+
+/* MENU */
+
+let menuOpen = true;
+
+function toggleMenu(){
+
+menuOpen = !menuOpen;
+
+if(menuOpen){
+
+sidebar.classList.remove("closed");
+content.classList.remove("full");
+
+}else{
+
+sidebar.classList.add("closed");
+content.classList.add("full");
+}
+}
+
+/* SETTINGS */
+
+function toggleSettings(){
+
+settingsPanel.classList.toggle("active");
+}
+
+/* PAGES */
+
+function hideAll(){
+
+games.style.display = "none";
+slotsWindow.style.display = "none";
+minesWindow.style.display = "none";
+historyWindow.style.display = "none";
+}
+
+function openCasino(){
+
+hideAll();
+
+games.style.display = "grid";
+}
+
+function openSlots(){
+
+hideAll();
+
+slotsWindow.style.display = "block";
+}
+
+function openMines(){
+
+hideAll();
+
+minesWindow.style.display = "block";
+}
+
+function openHistory(){
+
+hideAll();
+
+historyWindow.style.display = "block";
+
+renderHistory();
+}
+
+/* SLOTS */
+
+let slotRunning = false;
+
+async function playSlots(){
+
+if(slotRunning) return;
+
+const bet =
+Number(slotBet.value);
+
+if(!bet || bet <= 0){
+
+alert("Введите ставку");
+return;
+}
+
+const currentUser =
+localStorage.getItem("currentUser");
+
+let users =
+JSON.parse(localStorage.getItem("users"));
+
+let userBalance =
+users[currentUser].balance;
+
+if(userBalance < bet){
+
+alert("Недостаточно средств");
+return;
+}
+
+slotRunning = true;
+
+userBalance -= bet;
+
+saveBalance(userBalance);
+
+const items = [
+"🍒",
+"💎",
+"7️⃣",
+"🔥",
+"🍋",
+"⚡",
+"💰",
+"👑"
+];
+
+slot1.classList.add("animate");
+slot2.classList.add("animate");
+slot3.classList.add("animate");
+
+const anim = setInterval(()=>{
+
+slot1.innerText =
+items[Math.floor(Math.random()*items.length)];
+
+slot2.innerText =
+items[Math.floor(Math.random()*items.length)];
+
+slot3.innerText =
+items[Math.floor(Math.random()*items.length)];
+
+},80);
+
+await new Promise(r=>setTimeout(r,2000));
+
+clearInterval(anim);
+
+slot1.classList.remove("animate");
+slot2.classList.remove("animate");
+slot3.classList.remove("animate");
+
+const a =
+items[Math.floor(Math.random()*items.length)];
+
+const b =
+items[Math.floor(Math.random()*items.length)];
+
+const c =
+items[Math.floor(Math.random()*items.length)];
+
+slot1.innerText = a;
+slot2.innerText = b;
+slot3.innerText = c;
+
+slot1.classList.remove("win");
+slot2.classList.remove("win");
+slot3.classList.remove("win");
+
+let multiplier = 0;
+
+if(a === b && b === c){
+
+multiplier = 5;
+
+}else if(
+a === b ||
+b === c ||
+a === c
+){
+
+multiplier = 2;
+}
+
+if(multiplier > 0){
+
+const win = bet * multiplier;
+
+userBalance += win;
+
+saveBalance(userBalance);
+
+slotMessage.innerText =
+`Вы выиграли $${win.toFixed(2)} (${multiplier}x)`;
+
+slot1.classList.add("win");
+slot2.classList.add("win");
+slot3.classList.add("win");
+
+addHistory(
+"Slots",
+"Выигрыш",
+multiplier + "x",
+win
+);
+
+}else{
+
+slotMessage.innerText =
+"Вы проиграли";
+
+addHistory(
+"Slots",
+"Проигрыш",
+"0x",
+bet
+);
+}
+
+users[currentUser].balance =
+userBalance;
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+loadBalance();
+
+slotRunning = false;
+}
+
+/* MINES */
+
+let minePositions = [];
+let gameActive = false;
+let minesBetValue = 0;
+let currentMultiplier = 2;
+
+mineCount.addEventListener("change",updateCoef);
+
+function updateCoef(){
+
+const mines =
+Number(mineCount.value);
+
+currentMultiplier =
+(1 + mines * 0.2).toFixed(2);
+
+coef.innerText =
+currentMultiplier + "x";
+}
+
+updateCoef();
+
+function startMines(){
+
+minesGrid.innerHTML = "";
+
+minesMessage.innerText = "";
+
+currentWin.innerText = "0";
+
+const bet =
+Number(minesBet.value);
+
+if(!bet || bet <= 0){
+
+alert("Введите ставку");
+return;
+}
+
+const currentUser =
+localStorage.getItem("currentUser");
+
+let users =
+JSON.parse(localStorage.getItem("users"));
+
+let balanceNow =
+users[currentUser].balance;
+
+if(balanceNow < bet){
+
+alert("Недостаточно средств");
+return;
+}
+
+/* FIX BALANCE BUG */
+
+balanceNow -= bet;
+
+users[currentUser].balance =
+balanceNow;
+
+localStorage.setItem(
+"users",
+JSON.stringify(users)
+);
+
+loadBalance();
+
+minesBetValue = bet;
+
+gameActive = true;
+
+minePositions = [];
+
+const minesCount =
+Number(mineCount.value);
+
+/* MORE CHANCE TO HIT MINE */
+
+while(minePositions.length < minesCount){
+
+const rand =
+Math.floor(Math.random()*25);
+
+if(!minePositions.includes(rand)){
+
+minePositions.push(rand);
+}
+}
+
+for(let i=0;i<25;i++){
+
+const cell =
+document.createElement("div");
+
+cell.className = "mine";
+
+cell.onclick = ()=> clickMine(i,cell);
+
+minesGrid.appendChild(cell);
+}
+}
+
+function clickMine(index,cell){
+
+if(!gameActive) return;
+
+if(cell.innerText !== "") return;
+
+if(minePositions.includes(index)){
+
+cell.innerText = "💣";
+
+cell.style.background = "#ef4444";
+
+minesMessage.innerText =
+"Вы проиграли";
+
+addHistory(
+"Mines",
+"Проигрыш",
+"0x",
+minesBetValue
+);
+
+gameActive = false;
+
+}else{
+
+cell.innerText = "💎";
+
+cell.style.background = "#22c55e";
+
+const win =
+minesBetValue *
+currentMultiplier;
+
+currentWin.innerText =
+win.toFixed(2);
+
+minesMessage.innerText =
+"Продолжайте игру";
+}
+}
+
+function cashout(){
+
+if(!gameActive){
+
+alert("Игра не активна");
+return;
+}
+
+const win =
+Number(currentWin.innerText);
+
+if(win <= 0){
+
+alert("Нет выигрыша");
+return;
+}
+
+const currentUser =
+localStorage.getItem("currentUser");
+
+let users =
+JSON.parse(localStorage.getItem("users"));
+
+let balanceNow =
+users[currentUser].balance;
+
+balanceNow += win;
+
+saveBalance(balanceNow);
+
+addHistory(
+"Mines",
+"Выигрыш",
+currentMultiplier + "x",
+win
+);
+
+minesMessage.innerText =
+`Вы выиграли $${win.toFixed(2)} (${currentMultiplier}x)`;
+
+gameActive = false;
+}
+
+/* PAYMENTS */
+
+function openDeposit(){
+
+depositWindow.style.display =
+"flex";
+}
+
+function closeDeposit(){
+
+depositWindow.style.display =
+"none";
+}
+
+function depositBalance(){
+
+const amount =
+Number(depositAmount.value);
+
+if(!amount || amount <= 0){
+
+alert("Введите сумму");
+return;
+}
+
+const currentUser =
+localStorage.getItem("currentUser");
+
+let users =
+JSON.parse(localStorage.getItem("users"));
+
+users[currentUser].balance += amount;
+
+saveBalance(
+users[currentUser].balance
+);
+
+depositAmount.value = "";
+
+closeDeposit();
+
+alert("Баланс пополнен");
+}
+
+function openWithdraw(){
+
+withdrawWindow.style.display =
+"flex";
+}
+
+function closeWithdraw(){
+
+withdrawWindow.style.display =
+"none";
+}
+
+function withdrawBalance(){
+
+const amount =
+Number(withdrawAmount.value);
+
+if(!amount || amount <= 0){
+
+alert("Введите сумму");
+return;
+}
+
+const currentUser =
+localStorage.getItem("currentUser");
+
+let users =
+JSON.parse(localStorage.getItem("users"));
+
+if(users[currentUser].balance < amount){
+
+alert("Недостаточно средств");
+return;
+}
+
+users[currentUser].balance -= amount;
+
+saveBalance(
+users[currentUser].balance
+);
+
+withdrawAmount.value = "";
+
+closeWithdraw();
+
+alert("Средства выведены");
+}
+
+/* AUTO LOGIN */
+
+window.onload = ()=>{
+
+const currentUser =
+localStorage.getItem("currentUser");
+
+if(currentUser){
+
+login(currentUser);
+}
+}
+
+</script>
+
+</body>
+</html>
